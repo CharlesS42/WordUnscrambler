@@ -16,5 +16,11 @@ namespace WordUnscrambler
 
         public string ScrambledWord { get; set; }
         public string Word { get; set; }
+
+        //override the toString to print the word and the scrambled word that match and adding an equal sign
+        public override string ToString()
+        {
+            return Word.ToString() + " = " + ScrambledWord.ToString();
+        }
     }
 }

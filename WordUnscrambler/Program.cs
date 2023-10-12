@@ -36,7 +36,7 @@ namespace WordUnscrambler
                                 succesful = true;
                                 break;
                             case "M":
-                                Console.WriteLine("Enter word(s) manually (separated by commas if multiple): ");
+                                Console.WriteLine("Enter word(s) manually (separated by commas if multiple) in one line: ");
                                 ExecuteScrambledWordsManualEntryScenario();
                                 succesful = true;
                                 break;
@@ -44,8 +44,6 @@ namespace WordUnscrambler
                                 Console.WriteLine("The entered option was not recognized.");
                                 break;
                         }
-
-                        Console.ReadLine();
 
                     }
                     catch (Exception ex)
@@ -99,22 +97,40 @@ namespace WordUnscrambler
 
         private static void ExecuteScrambledWordsInFileScenario()
         {
+            //read the name of the file
             var filename = Console.ReadLine();
+            //use the read function to extract the words and put them in the array
             string[] scrambledWords = _fileReader.Read(filename);
+            //send the list to the display function
             DisplayMatchedUnscrambledWords(scrambledWords);
         }
 
         private static void ExecuteScrambledWordsManualEntryScenario()
         {
+            //read the words and put them in a string
+            string text = Console.ReadLine();
+            //put the words in a list
+            string[] scrambledWords = text.Split(new string[] { "," }, StringSplitOptions.None);
+
+            //send the list to the display method
+            DisplayMatchedUnscrambledWords(scrambledWords);
         }
 
         private static void DisplayMatchedUnscrambledWords(string[] scrambledWords)
         {
             //read the list of words from the system file. 
-            string[] wordList = _fileReader.Read("wordlist.txt");
+            string[] wordList = _fileReader.Read(@"C:\\DOTNET_Projects\\WordMatcher\\WordUnscrambler\\bin\\Debug\\test.txt");
 
             //call a word matcher method to get a list of structs of matched words.
             List<MatchedWord> matchedWords = _wordMatcher.Match(scrambledWords, wordList);
+
+            //print all the words that match
+            Console.WriteLine("Those are words that match: ");
+            foreach (MatchedWord matchedWord in matchedWords)
+            {
+                Console.WriteLine(matchedWord);
+            }
+            
         }
     }
 }

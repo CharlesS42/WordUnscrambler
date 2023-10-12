@@ -25,7 +25,7 @@ namespace WordUnscrambler
                     Array.Sort(arrWList);
                     string wordOnList = new string(arrWList);
 
-                    if(w == x) // compare each of the words in wordList with the current scramWord to seek any match, return both when it does.
+                    if(wordOnList == scramWord) // compare each of the words in wordList with the current scramWord to seek any match, return both when it does.
                     {
                         matchedWords.Add(new MatchedWord(w, x));
                     }
