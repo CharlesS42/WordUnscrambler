@@ -17,9 +17,21 @@ namespace WordUnscrambler
             
             foreach(string w in scrambledWords)
             {
-                char[] arrChar = w.ToLower().Replace(" ", "").ToCharArray();
-                string scrambledWord = new string(arrChar);
+                char[] arrScramble = w.ToLower().Replace(" ", "").ToCharArray();
+                Array.Sort(arrScramble);
+                string scramWord = new string(arrScramble);
+                foreach (string x in wordList)
+                {
+                    char[] arrWList = x.ToLower().Replace(" ", "").ToCharArray();
+                    Array.Sort(arrWList);
+                    string wordOnList = new string(arrWList);
+                    if(w == x)
+                    {
+                        matchedWords.Add(new MatchedWord(w, x));
+                    }
+                }
             }
+
 
             MatchedWord matchedWord = new MatchedWord();
 
