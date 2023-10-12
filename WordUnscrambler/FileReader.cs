@@ -11,10 +11,14 @@ namespace WordUnscrambler
     {
         public string[] Read(string filename)
         {
-            // Your Code hre!
-           
+            StreamReader reader = new StreamReader(filename);
 
-            return null;
+            string text = reader.ReadToEnd();
+
+            string[] words = text.Split(new string[] { "," }, StringSplitOptions.None);
+
+            return words;
         }
-    }
+    } 
 }
+
