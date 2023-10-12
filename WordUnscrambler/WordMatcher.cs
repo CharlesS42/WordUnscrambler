@@ -14,8 +14,14 @@ namespace WordUnscrambler
 
             // Implement code here.
             // Work with "scrambledWords" and "matchedWords".
-            // Adem is here
-            //i am here too
+            
+            foreach(string w in scrambledWords)
+            {
+                char[] arrChar = w.ToLower().Replace(" ", "").ToCharArray();
+                string scrambledWord = new string(arrChar);
+            }
+
+            MatchedWord matchedWord = new MatchedWord();
 
             MatchedWord BuildMatchedWord(string scrambledWord, string word)
             {
