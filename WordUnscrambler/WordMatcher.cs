@@ -11,36 +11,25 @@ namespace WordUnscrambler
         public List<MatchedWord> Match(string[] scrambledWords, string[] wordList)
         {
             List<MatchedWord> matchedWords = new List<MatchedWord>();
-
-            // Implement code here.
-            // Work with "scrambledWords" and "matchedWords".
             
-            foreach(string w in scrambledWords)
+            foreach(string w in scrambledWords) 
+                // repeat the process of conversion accross every word of the scrambledWords array
             {
-                char[] arrScramble = w.ToLower().Replace(" ", "").ToCharArray();
-                Array.Sort(arrScramble);
+                char[] arrScramble = w.ToLower().Replace(" ", "").ToCharArray(); // CtA -> 'c', 't', 'a'
+                Array.Sort(arrScramble); // 'c', 't', 'a' -> 'a', 'c', 't'
                 string scramWord = new string(arrScramble);
-                foreach (string x in wordList)
+                
+                foreach (string x in wordList) // repeat the process of conversion accross every word of the wordList array
                 {
                     char[] arrWList = x.ToLower().Replace(" ", "").ToCharArray();
                     Array.Sort(arrWList);
                     string wordOnList = new string(arrWList);
-                    if(w == x)
+
+                    if(w == x) // compare each of the words in wordList with the current scramWord to seek any match, return both when it does.
                     {
                         matchedWords.Add(new MatchedWord(w, x));
                     }
                 }
-            }
-
-
-            MatchedWord matchedWord = new MatchedWord();
-
-            MatchedWord BuildMatchedWord(string scrambledWord, string word)
-            {
-                // Build a matched-word object here, so that you can return it.
-
-                //return matchedWord;
-                return new MatchedWord();  // Delete this line when done.
             }
 
             return matchedWords;
