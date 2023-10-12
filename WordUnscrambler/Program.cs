@@ -15,36 +15,86 @@ namespace WordUnscrambler
 
         static void Main(string[] args)
         {
-            try
-            {
-                Console.WriteLine("Enter scrambled word(s) manually or as a file: F - file / M - manual");
+            bool terminateProgram = false;
+            do { 
 
-                String option = Console.ReadLine() ?? throw new Exception("String is empty");
+                bool succesful = false;
 
-                switch (option.ToUpper())
+                do
                 {
-                    case "F":
-                        Console.WriteLine("Enter full path including the file name: ");
-                        ExecuteScrambledWordsInFileScenario();
-                        break;
-                    case "M":
-                        Console.WriteLine("Enter word(s) manually (separated by commas if multiple): ");
-                        ExecuteScrambledWordsManualEntryScenario();
-                        break;
-                    default:
-                        Console.WriteLine("The entered option was not recognized.");
-                        break;
-                }
+                    try
+                    {
+                        Console.WriteLine("Enter scrambled word(s) manually or as a file: F - file / M - manual");
 
-                Console.ReadLine();
+                        String option = Console.ReadLine() ?? throw new Exception("String is empty");
+
+                        switch (option.ToUpper())
+                        {
+                            case "F":
+                                Console.WriteLine("Enter full path including the file name: ");
+                                ExecuteScrambledWordsInFileScenario();
+                                succesful = true;
+                                break;
+                            case "M":
+                                Console.WriteLine("Enter word(s) manually (separated by commas if multiple): ");
+                                ExecuteScrambledWordsManualEntryScenario();
+                                succesful = true;
+                                break;
+                            default:
+                                Console.WriteLine("The entered option was not recognized.");
+                                break;
+                        }
+
+                        Console.ReadLine();
+
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("The program will be terminated." + ex.Message);
+
+                    }
+                } while (!succesful);
+
+                bool repeatRequest = true;
+
+                do
+                {
+                    try
+                    {
+
+                        Console.WriteLine("Would you like to continue? Y/N");
+
+                        String input = Console.ReadLine() ?? throw new Exception("String is empty");
+
+                        switch (input.ToUpper())
+                        {
+                            case "Y":
+                                repeatRequest = false;
+                                terminateProgram = false;
+                                break;
+
+                            case "N":
+                                Console.WriteLine("Thank you. The program is terminated.");
+                                repeatRequest = false;
+                                terminateProgram = true;
+                                break;
+
+                            default:
+                                repeatRequest = true;
+                                break;
+                        }
 
 
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("The program will be terminated." + ex.Message);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("The program will be terminated." + ex.Message);
+                        repeatRequest = false;
+                        terminateProgram = true;
+                    }
 
-            }
+                }while (repeatRequest);
+            } while (!terminateProgram);
         }
 
         private static void ExecuteScrambledWordsInFileScenario()
