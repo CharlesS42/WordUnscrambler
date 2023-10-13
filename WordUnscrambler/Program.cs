@@ -28,19 +28,12 @@ namespace WordUnscrambler
 
                         String option = Console.ReadLine() ?? throw new Exception(Properties.strings.EmptyString);
 
-                        switch (option.ToUpper())
+                        // extension method takes the input and tests its result to see through a switch if its either E (for english) or F (for french)
+                        languageRequest = option.isLanguageValid(); 
+
+                        if(!languageRequest)
                         {
-                            case "E":
-                                Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo("");
-                                languageRequest = true;
-                                break;
-                            case "F":
-                                Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo("fr-CA");
-                                languageRequest = true;
-                                break;
-                            default:
-                                Console.WriteLine(Properties.strings.WrongFormat);
-                                break;
+                            Console.WriteLine(Properties.strings.WrongFormat);
                         }
 
                     }
