@@ -16,7 +16,35 @@ namespace WordUnscrambler
         static void Main(string[] args)
         {
             bool terminateProgram = false;
-            do { 
+            do
+            {
+                bool languageRequest = false;
+
+                do 
+                {
+                    try
+                    {
+                        Console.WriteLine(Properties.strings.LanguageIntro);
+
+                        String option = Console.ReadLine() ?? throw new Exception(Properties.strings.EmptyString);
+
+                        // extension method takes the input and tests its result to see through a switch if its either E (for english) or F (for french)
+                        languageRequest = option.isLanguageValid(); 
+
+                        if(!languageRequest)
+                        {
+                            Console.WriteLine(Properties.strings.WrongFormat);
+                        }
+
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(Properties.strings.CatchError + ex.Message);
+
+                    }
+
+                } while(!languageRequest);
+
 
                 bool succesful = false;
 
@@ -24,31 +52,31 @@ namespace WordUnscrambler
                 {
                     try
                     {
-                        Console.WriteLine("Enter scrambled word(s) manually or as a file: F - file / M - manual");
+                        Console.WriteLine(Properties.strings.FormatRequest);
 
-                        String option = Console.ReadLine() ?? throw new Exception("String is empty");
+                        String option = Console.ReadLine() ?? throw new Exception(Properties.strings.EmptyString);
 
                         switch (option.ToUpper())
                         {
                             case "F":
-                                Console.WriteLine("Enter full path including the file name: ");
+                                Console.WriteLine(Properties.strings.PathRequest);
                                 ExecuteScrambledWordsInFileScenario();
                                 succesful = true;
                                 break;
                             case "M":
-                                Console.WriteLine("Enter word(s) manually (separated by commas if multiple) in one line: ");
+                                Console.WriteLine(Properties.strings.ManualRequest);
                                 ExecuteScrambledWordsManualEntryScenario();
                                 succesful = true;
                                 break;
                             default:
-                                Console.WriteLine("The entered option was not recognized.");
+                                Console.WriteLine(Properties.strings.WrongFormat);
                                 break;
                         }
 
                     }
                     catch (Exception ex)
                     {
-                        Console.WriteLine("The program will be terminated." + ex.Message);
+                        Console.WriteLine(Properties.strings.CatchError + ex.Message);
 
                     }
                 } while (!succesful);
@@ -60,9 +88,9 @@ namespace WordUnscrambler
                     try
                     {
 
-                        Console.WriteLine("Would you like to continue? Y/N");
+                        Console.WriteLine(Properties.strings.RepeatRequest);
 
-                        String input = Console.ReadLine() ?? throw new Exception("String is empty");
+                        String input = Console.ReadLine() ?? throw new Exception(Properties.strings.EmptyString);
 
                         switch (input.ToUpper())
                         {
@@ -72,7 +100,7 @@ namespace WordUnscrambler
                                 break;
 
                             case "N":
-                                Console.WriteLine("Thank you. The program is terminated.");
+                                Console.WriteLine(Properties.strings.FinishedProgram);
                                 repeatRequest = false;
                                 terminateProgram = true;
                                 break;
@@ -86,7 +114,7 @@ namespace WordUnscrambler
                     }
                     catch (Exception ex)
                     {
-                        Console.WriteLine("The program will be terminated." + ex.Message);
+                        Console.WriteLine(Properties.strings.CatchError + ex.Message);
                         repeatRequest = false;
                         terminateProgram = true;
                     }
@@ -125,7 +153,7 @@ namespace WordUnscrambler
             List<MatchedWord> matchedWords = _wordMatcher.Match(scrambledWords, wordList);
 
             //print all the words that match
-            Console.WriteLine("Those are words that match: ");
+            Console.WriteLine(Properties.strings.DisplayMatchedWords);
             foreach (MatchedWord matchedWord in matchedWords)
             {
                 Console.WriteLine(matchedWord);
